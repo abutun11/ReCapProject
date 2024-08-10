@@ -1,4 +1,5 @@
 ﻿using Business.Concrete;
+using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 
 namespace ConsoleUI
@@ -7,22 +8,22 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            CarManager carManager = new CarManager(new InMemoryCarDal());
+            CarManager carManager = new CarManager(new EfCarDal());
 
-            carManager.Add(new Entities.Concrete.Car { Id = 6, BrandId = 6, ColorId = 6, ModelYear = "2023", DailyPrice = 2800, Description = "Alpha Romeo" });
+            //carManager.Add(new Entities.Concrete.Car {CarId = 1, BrandId = 6, ColorId = 6, CarName = "Alpha Romeo", ModelYear = "2023", DailyPrice = 2200, Description = "Alpha Romeo" });
 
-            carManager.Update(new Entities.Concrete.Car { Id = 6, BrandId = 7, ColorId = 7, ModelYear = "2024", DailyPrice = 4000, Description = "Alpha Romeo Full Paket" });
+            //carManager.Update(new Entities.Concrete.Car { CarId = 6, BrandId = 7, ColorId = 7, ModelYear = "2024", DailyPrice = 4000, Description = "Alpha Romeo Full Paket" });
 
-            carManager.Delete(new Entities.Concrete.Car { Id = 6, BrandId = 6, ColorId = 6, ModelYear = "2023", DailyPrice = 2800, Description = "Alpha Romeo" });
+            //carManager.Delete(new Entities.Concrete.Car { CarId = 6, BrandId = 6, ColorId = 6, ModelYear = "2023", DailyPrice = 2800, Description = "Alpha Romeo" });
 
-            foreach (var car in carManager.GetAll())
+            foreach (var car in carManager.GetCarsByBrandId(6))
             {
-                Console.WriteLine(car.Description);
+                Console.WriteLine(car.CarName);
             }
 
-            foreach (var car in carManager.GetById(4))
+            foreach (var car in carManager.GetCarsByColorId(6))
             {
-                Console.WriteLine(car.Description);
+                Console.WriteLine(car.DailyPrice);
             }
 
 
