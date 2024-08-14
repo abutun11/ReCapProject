@@ -17,17 +17,17 @@ namespace ConsoleUI
 
             carManager.Delete(new Entities.Concrete.Car { CarId = 6, BrandId = 6, ColorId = 6, ModelYear = "2023", DailyPrice = 2800, Description = "Alpha Romeo" });
 
-            foreach (var car in carManager.GetCarsByBrandId(6))
+            foreach (var car in carManager.GetCarsByBrandId(6).Data)
             {
                 Console.WriteLine(car.CarName);
             }
 
-            foreach (var car in carManager.GetCarsByColorId(6))
+            foreach (var car in carManager.GetCarsByColorId(6).Data)
             {
                 Console.WriteLine(car.DailyPrice);
             }
 
-            foreach (var car in carManager.GetCarDetails())
+            foreach (var car in carManager.GetCarDetails().Data)
             {
                 Console.WriteLine(car.CarName + "/" + car.BrandName + "/" + car.ColorName + "/" + car.DailyPrice);
             }
@@ -36,7 +36,7 @@ namespace ConsoleUI
             brandManager.Add(new Brand { BrandId = 6, BrandName = "Alpha Romeo" });
 
             ColorManager colorManager = new ColorManager(new EfColorDal());
-            foreach (var color in colorManager.GetAll())
+            foreach (var color in colorManager.GetAll().Data)
             {
                 Console.WriteLine(color.ColorId + "/" + color.ColorName);
             }
