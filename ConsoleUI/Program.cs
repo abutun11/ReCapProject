@@ -9,9 +9,38 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
+            //CarTest();
+            //ColorOrBrandTest();
+            //RentalTest();
+        }
+
+        private static void RentalTest()
+        {
+            UserManager userManager = new UserManager(new EfUserDal());
+            userManager.Add(new User { UserId = 1, FirstName = "İbrahim Alican", LastName = "BÜTÜN", Email = "butunalican01@gmail.com", Password = "xyz***zyx" });
+
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            customerManager.Add(new Customer { CustomerId = 1, UserId = 1, CompanyName = "ABC" });
+
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            var result = rentalManager.Add(new Rental { RentalId = 2, CarId = 2, CustomerId = 1, RentDate = DateTime.Now, ReturnDate = null });
+            Console.WriteLine(result.Message);
+        }
+
+        private static void ColorOrBrandTest()
+        {
+            BrandManager brandManager = new BrandManager(new EfBrandDal());
+            brandManager.Add(new Brand { BrandId = 1, BrandName = "BMW" });
+
+            ColorManager colorManager = new ColorManager(new EfColorDal());
+            colorManager.Add(new Color { ColorId=2, ColorName = "Siyah" });
+        }
+
+        private static void CarTest()
+        {
             CarManager carManager = new CarManager(new EfCarDal());
 
-            carManager.Add(new Entities.Concrete.Car { CarId = 1, BrandId = 6, ColorId = 6, CarName = "Alpha Romeo", ModelYear = "2023", DailyPrice = 2200, Description = "Alpha Romeo" });
+            carManager.Add(new Entities.Concrete.Car { CarId = 2, BrandId = 1, ColorId = 2, CarName = "BMW", ModelYear = "2021", DailyPrice = 3500, Description = "BMW MSport" });
 
             carManager.Update(new Entities.Concrete.Car { CarId = 6, BrandId = 7, ColorId = 7, ModelYear = "2024", DailyPrice = 4000, Description = "Alpha Romeo Full Paket" });
 
@@ -31,16 +60,6 @@ namespace ConsoleUI
             {
                 Console.WriteLine(car.CarName + "/" + car.BrandName + "/" + car.ColorName + "/" + car.DailyPrice);
             }
-
-            BrandManager brandManager = new BrandManager(new EfBrandDal());
-            brandManager.Add(new Brand { BrandId = 6, BrandName = "Alpha Romeo" });
-
-            ColorManager colorManager = new ColorManager(new EfColorDal());
-            foreach (var color in colorManager.GetAll().Data)
-            {
-                Console.WriteLine(color.ColorId + "/" + color.ColorName);
-            }
-
         }
     }
 }
