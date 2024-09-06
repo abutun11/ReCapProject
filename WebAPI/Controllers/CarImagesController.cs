@@ -29,7 +29,8 @@ namespace WebAPI.Controllers
         [HttpPost("Update")]
         public IActionResult Update([FromForm] IFormFile file, [FromForm] CarImage carImage)
         {
-            var result = _carImageService.Update(file, carImage);
+            var carUpdateImage = _carImageService.GetByImageId(carImage.CarImageId).Data;
+            var result = _carImageService.Update(file, carUpdateImage);
             if (result.Success)
             {
                 return Ok(result);
@@ -68,7 +69,7 @@ namespace WebAPI.Controllers
             {
                 return Ok(result);
             }
-            return Ok(result);
+            return BadRequest(result);
         }
 
         [HttpGet("GetByImageId")]

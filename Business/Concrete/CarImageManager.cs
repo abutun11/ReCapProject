@@ -40,11 +40,12 @@ namespace Business.Concrete
         {
             _fileHelper.Delete(PathConstants.ImagesPath + carImage.ImagePath);
             _carImageDal.Delete(carImage);
-            return new SuccessResult(true);
+            return new SuccessResult(true, Messages.CarImageDeleted);
         }
         public IResult Update(IFormFile file, CarImage carImage)
         {
             carImage.ImagePath = _fileHelper.Update(file, PathConstants.ImagesPath + carImage.ImagePath, PathConstants.ImagesPath);
+            carImage.Date = DateTime.Now;
             _carImageDal.Update(carImage);
             return new SuccessResult(true, Messages.CarImageUpdated);
         }
@@ -54,7 +55,7 @@ namespace Business.Concrete
             var result = BusinessRules.Run(CheckCarImage(carId));
             if (result != null)
             {
-                return new ErrorDataResult<List<CarImage>>(GetDefaultImage(carId).Data);
+                return new SuccessDataResult<List<CarImage>>(GetDefaultImage(carId).Data);
             }
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(c => c.CarId == carId));
         }
@@ -79,10 +80,14 @@ namespace Business.Concrete
         }
         private IDataResult<List<CarImage>> GetDefaultImage(int carId)
         {
-
-            List<CarImage> carImage = new List<CarImage>();
-            carImage.Add(new CarImage { CarId = carId, Date = DateTime.Now, ImagePath = "DefaultImage.jpg" });
-            return new SuccessDataResult<List<CarImage>>(carImage);
+            List<CarImage> carImages = new List<CarImage>();
+            carImages.Add(new CarImage
+            {
+                CarId = carId,
+                ImagePath = PathConstants.ImagesPath + "default.jpg",
+                Date = DateTime.Now,
+            });
+            return new SuccessDataResult<List<CarImage>>(carImages);
         }
         private IResult CheckCarImage(int carId)
         {
