@@ -17,7 +17,7 @@ namespace ConsoleUI
         private static void RentalTest()
         {
             UserManager userManager = new UserManager(new EfUserDal());
-            userManager.Add(new User { UserId = 1, FirstName = "İbrahim Alican", LastName = "BÜTÜN", Email = "butunalican01@gmail.com"});
+            userManager.Add(new User { Id = 1, FirstName = "İbrahim Alican", LastName = "BÜTÜN", Email = "butunalican01@gmail.com"});
 
             CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
             customerManager.Add(new Customer { CustomerId = 1, UserId = 1, CompanyName = "ABC" });
