@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Business.Constants
+﻿namespace Business.Constants
 {
     public static class Messages
     {
@@ -32,5 +26,12 @@ namespace Business.Constants
         public static string CarImageDeleted = "Resim başarıyla silindi";
         public static string CarImageUpdated = "Resim başarıyla güncellendi";
         public static string CarImageLimitExceded = "Bir arabaya ait en fazla 5 resim yüklenebilir";
+        public static string AuthorizationDenied = "Yetkiniz yok";
+        public static string UserRegistered = "Kullanıcı başarıyla kaydoldu.";
+        public static string UserNotFound = "Kullanıcı bulunamadı.";
+        public static string SuccessfulLogin = "Başarılı giriş";
+        public static string PasswordError = "Parola hatası";
+        public static string UserAlreadyExists = "Kullanıcı zaten mevcut";
+        public static string AccessTokenCreated = "Token oluşturuldu.";
     }
 }
